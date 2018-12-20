@@ -4,7 +4,6 @@ import t from 'prop-types'
 
 export default class Polyline extends React.Component {
   static propTypes = {
-    id: t.string.isRequired,
     path: t.array.isRequired,
     strokeColor: t.string,
     strokeOpacity: t.number,

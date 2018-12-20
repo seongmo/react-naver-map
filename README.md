@@ -4,7 +4,10 @@
 
 [![NPM](https://img.shields.io/npm/v/react-naver-map.svg)](https://www.npmjs.com/package/react-naver-map)
 
-A react component for Naver map javascript API v3.
+네이버 지도 자바스크립트 v3을 감싼 리액트 컴포넌트 입니다.
+
+0.0.21 버전부터 Marker, Polyline, Polygon에서 id를 받지 않습니다. 또한 onClick에서도 id를 더이상 리턴하지 않습니다.
+
 
 ## Install
 
@@ -47,7 +50,7 @@ render() {
 ## Display markers
 
 ```jsx
-import NaverMap from 'react-naver-map'
+import NaverMap, {Marker} from 'react-naver-map'
 import markerPng from './marker.png'
 
 ...
@@ -56,12 +59,11 @@ render() {
   return (
     <NaverMap>
       {markers.map(marker => (
-        <NaverMap.Marker 
+        <Marker 
           key={...} 
-          id={...} // unique marker id: required
           lat={marker.lat} 
           lng={marker.lng}
-          onClick={({id, event}) => {...}}  // id: given id, event: PointerEvent 
+          onClick={event => {...}}  // id: given id, event: PointerEvent 
           icon={{
             url: markerPng,
             size:{width:24,height:32},
@@ -89,7 +91,6 @@ render() {
   return (
     <NaverMap>
       <NaverMap.Polyline 
-        id={...}  // unique polyline id: required
         path={[
           {lat:37.359924641705476, lng: 127.1148204803467},
           {lat:37.36343797188166, lng: 127.11486339569092},
@@ -101,7 +102,6 @@ render() {
         strokeWeight={3}
       />
       <NaverMap.Polygon 
-        id={...}  // unique polygon id: required
         paths={[
           [
             {lat: 37.37544345085402, lng: 127.11224555969238},
@@ -132,6 +132,7 @@ render() {
   )
 }
 ```
+
 
 ## License
 

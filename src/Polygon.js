@@ -4,7 +4,6 @@ import t from 'prop-types'
 
 export default class Polygon extends React.Component {
   static propTypes = {
-    id: t.string.isRequired,
     paths: t.arrayOf(t.array.isRequired).isRequired,
     fillColor: t.string,
     fillOpacity: t.number,

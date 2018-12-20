@@ -3,3 +3,20 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+nav ul {
+  display: flex;
+
+}
+nav ul li {
+  display: block;
+  margin: 0 10px;
+}
+nav ul li a{
+  color: #777;
+  text-decoration: none;
+}
+nav ul li a.active {
+  color: rgb(36, 111, 187);
+  font-weight: bold;
+}

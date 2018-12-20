@@ -4,7 +4,6 @@ import t from 'prop-types'
 
 export default class Overlay extends React.Component {
   static propTypes = {
-    id: t.string.isRequired,
     lat: t.number.isRequired,
     lng: t.number.isRequired,
     anchor: t.shape({
@@ -68,74 +67,6 @@ export default class Overlay extends React.Component {
     return ReactDOM.createPortal(this.props.render || this.props.children, this.el)
   }
 }
-
-// export class OverlayView extends React.PureComponent {
-//   static propTypes = {
-//     overlays: t.arrayOf(t.element).isRequired,
-//   }
-
-//   constructor(props) {
-//     super(props)
-//     this.CustomOverlayClass = getCustomOverlayClass(props.naver)
-//     this.naverOverlays = props.overlays
-//                           .map(overlay => [overlay.props.id, this.creatNaverOverlay(overlay)])
-//                           .reduce((obj, arr) => {obj[arr[0]] = arr[1]; return obj}, {})
-//   }
-
-//   componentWillUpdate(nextProps) {
-//     const naverOverlays = nextProps.overlays
-//                           .map(overlay => [overlay.props.id, this.getAndUpdateNaverOverlay(overlay) || this.creatNaverOverlay(overlay)])
-//                           .reduce((obj, arr) => {obj[arr[0]] = arr[1]; return obj}, {})
-
-//     const prevNaverOverlays = this.naverOverlays
-//     const newOverlayKeys = nextProps.overlays.map(ov => ov.props.id)
-//     const keysToRemove = Object.keys(prevNaverOverlays).filter(k =>  newOverlayKeys.indexOf(k) < 0)
-//     keysToRemove.forEach(k => {
-//       prevNaverOverlays[k].setMap(null)
-//     })
-//     this.naverOverlays = naverOverlays
-//   }
-
-//   getAndUpdateNaverOverlay = (overlay) => {
-//     const naverOverlay = this.naverOverlays[overlay.props.id]
-//     if(!naverOverlay) return null;
-
-//     naverOverlay.setPosition({y:overlay.props.lat, x: overlay.props.lng})
-//     naverOverlay.setAnchor(overlay.props.anchor)
-//     overlay.props.zIndex && naverOverlay.setZIndex(overlay.props.zIndex)
-//     return naverOverlay
-//   }
-
-//   handleOverlayClick = (e) => {
-//     this.props.onOverlayClick && this.props.onOverlayClick(e)
-//   }
-
-//   creatNaverOverlay = (overlay) => {
-//     const mapNaver = this.props.mapNaver
-//     const CustomOverlayClass = this.CustomOverlayClass
-//     const el = document.createElement('div')
-//     el.addEventListener('click', this.handleOverlayClick)
-//     return new CustomOverlayClass({
-//       element: el,
-//       position: {y:overlay.props.lat, x: overlay.props.lng},
-//       anchor: overlay.props.anchor,
-//       size: overlay.props.size,
-//       zIndex: overlay.props.zIndex,
-//       map: mapNaver,
-//     })
-//   }
-
-//   render() {
-//     const overlays = this.props.overlays
-//     return (
-//       <div>
-//         {overlays.map((overlay, i) => (
-//           ReactDOM.createPortal(overlay.props.render || overlay.props.children, this.naverOverlays[overlay.props.id]._element)
-//         ))}
-//       </div>
-//     )
-//   }
-// }
 
 export const getCustomOverlayClass = naver => {
   return class CustomOverlay extends naver.maps.OverlayView {

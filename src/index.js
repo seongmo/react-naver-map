@@ -19,6 +19,30 @@ Polygon.contextType = MapContext
 
 export {Marker, Overlay, Polyline, Polygon}
 
+export const UiEvents = {
+  mousedown: 'mousedown',
+  mouseup: 'mouseup',
+  click: 'click',
+  dblclick: 'dblclick',
+  rightclick: 'rightclick',
+  mouseover: 'mouseover',
+  mouseout: 'mouseout',
+  mousemove: 'mousemove',
+  dragstart: 'dragstart',
+  drag: 'drag',
+  dragend: 'dragend',
+  touchstart: 'touchstart',
+  touchmove: 'touchmove',
+  touchend: 'touchend',
+  pinchstart: 'pinchstart',
+  pinch: 'pinch',
+  pinchend: 'pinchend',
+  tap: 'tap',
+  longtap: 'longtap',
+  twofingertap: 'twofingertap',
+  doubletap: 'doubletap',
+}
+
 class NaverMap extends React.Component {
   static Marker = Marker
   static Overlay = Overlay
@@ -61,9 +85,23 @@ class NaverMap extends React.Component {
 
     const CustomOverlay = getCustomOverlayClass(window.naver)
 
+    this.listeners = []
     // Regist Event Handler
-    naver.maps.Event.addListener(mapNaver, 'bounds_changed', this.handleBoundChanged)
-    naver.maps.Event.addListener(mapNaver, 'click', this.handleMapClick)
+    this.listeners.push(
+      naver.maps.Event.addListener(mapNaver, 'bounds_changed', this.handleBoundChanged),
+    )
+    this.listeners.push(naver.maps.Event.addListener(mapNaver, 'click', this.handleMapClick))
+    // Ui Events
+    const listeningEvents = this.props.listeningEvents || []
+    if (this.props.onUiEvent) {
+      Object.values(UiEvents)
+        .filter(evtType => listeningEvents.includes(evtType))
+        .forEach(eventType => {
+          this.listeners.push(
+            naver.maps.Event.addListener(mapNaver, eventType, this.props.onUiEvent),
+          )
+        })
+    }
 
     this.setState({naver, mapNaver, CustomOverlay, loaded: true})
 
@@ -82,6 +120,14 @@ class NaverMap extends React.Component {
 
   handleMapClick = e => {
     this.props.onMapClick && this.props.onMapClick(e)
+  }
+
+  componentWillUnmount() {
+    const {mapNaver, naver} = this
+
+    this.listeners.forEach(listener => {
+      naver.maps.Event.removeListener(listener)
+    })
   }
 
   render() {
@@ -120,6 +166,8 @@ NaverMap.propTypes = {
   initialZoom: PropTypes.number,
   onBoundChange: PropTypes.func,
   onMapClick: PropTypes.func,
+  onUiEvent: PropTypes.func,
+  listeningEvents: PropTypes.arrayOf(PropTypes.string),
   onInit: PropTypes.func,
   submodules: PropTypes.arrayOf(PropTypes.string),
 }
