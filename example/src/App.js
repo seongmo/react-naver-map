@@ -153,7 +153,7 @@ class App extends Component {
         <img src={markerPng2} />
 
         <NaverMap
-          clientId="WLJzLUr0OFda9Gac2EBS"
+          clientId=''
           style={{width: '500px', height: '500px'}}
           initialPosition={{lat: 36.0208521, lng: 129.3578551}}
           // initialZoom={6}
