@@ -51,9 +51,13 @@ class NaverMap extends React.Component {
 
   constructor(props) {
     super(props)
+    const {clientId, submodules = [], ncp} = props
+    let clientIdKey = ncp ? 'ncpClientId' : 'clientId'
+
     this.state = {
       loaded: false,
       CustomOverlay: undefined,
+      nMapScriptUrl: `https://openapi.map.naver.com/openapi/v3/maps.js?${clientIdKey}=${clientId}&submodules=${submodules.join()}`,
       naver: undefined,
       mapNaver: undefined,
     }
@@ -123,7 +127,7 @@ class NaverMap extends React.Component {
   }
 
   componentWillUnmount() {
-    const {mapNaver, naver} = this
+    const {naver} = this
 
     this.listeners.forEach(listener => {
       naver.maps.Event.removeListener(listener)
@@ -131,14 +135,14 @@ class NaverMap extends React.Component {
   }
 
   render() {
-    const {clientId, submodules = []} = this.props
+    const {nMapScriptUrl} = this.state
     const style = {position: 'relative', ...this.props.style}
 
     return (
       <div style={style}>
         <div ref={this.mapRef} style={{widht: '100%', height: '100%'}} />
         <Script
-          url={`https://openapi.map.naver.com/openapi/v3/maps.js?clientId=${clientId}&submodules=${submodules.join()}`}
+          url={nMapScriptUrl}
           onCreate={this.handleScriptCreate}
           onError={this.handleScriptError}
           onLoad={this.initMap}
@@ -153,6 +157,7 @@ class NaverMap extends React.Component {
 
 NaverMap.propTypes = {
   clientId: PropTypes.string.isRequired,
+  ncp: PropTypes.bool,
   initialBounds: PropTypes.shape({
     east: PropTypes.number.isRequired,
     west: PropTypes.number.isRequired,

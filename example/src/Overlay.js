@@ -31,7 +31,11 @@ const App = () => (
   <div>
     <h1>Overlay</h1>
 
-    <NaverMap clientId={clientId} style={{width: '500px', height: '500px'}} initialBounds={bounds}>
+    <NaverMap
+      ncp
+      clientId={clientId}
+      style={{width: '500px', height: '500px'}}
+      initialBounds={bounds}>
       <Overlay
         lat={36.020852}
         lng={129.3578551}

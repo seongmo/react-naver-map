@@ -30,6 +30,7 @@ render() {
   return (
     <NaverMap
       clientId='...'
+      ncp // 네이버 클라우드 플랫폼 사용여부
       style={{width:'500px', height:'500px'}}
       initialPosition={{lat:37.3595704, lng:127.105399}}
       initialZoom={8}
@@ -77,7 +78,6 @@ render() {
   )
 }
 ```
-
 
 
 ## Display polyline and ploygon
@@ -128,6 +128,39 @@ render() {
         strokeOpacity={0.6}
         strokeWeight={3}
       /> 
+    </NaverMap>
+  )
+}
+```
+
+
+## Display Overlay
+
+```jsx
+import NaverMap, {Overlay} from 'react-naver-map'
+
+...
+
+render() {
+  return (
+    <NaverMap>
+      <Overlay
+        lat={37.3595704}
+        lng={127.105399}
+        zIndex={200}
+        onClick={e => {
+          console.log('overclick')
+          e.stopPropagation()
+        }}>
+        <div
+          style={{
+            width: '120px',
+            height: '120px',
+            backgroundColor: 'white',
+          }}>
+          <img src={imgSrc} alt="overImg" style={{width: '100%', height: '100%'}} />
+        </div>
+      </Overlay>
     </NaverMap>
   )
 }

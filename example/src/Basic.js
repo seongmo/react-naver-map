@@ -31,6 +31,7 @@ class App extends React.Component {
             initialPosition={{lat: 36.0208521, lng: 129.3578551}}
             // initialZoom={6}
             // initialBounds={bounds}
+            ncp
             onInit={this.handleMapInit}
             onBoundChange={this.handleBoundChange}
             onMapClick={this.handleMapClick}

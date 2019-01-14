@@ -11,6 +11,7 @@ class App extends Component {
         <h1>Polygon</h1>
 
         <NaverMap
+          ncp
           clientId={clientId}
           style={{width: '500px', height: '500px'}}
           initialPosition={{lat: 36.0248521, lng: 129.3578551}}

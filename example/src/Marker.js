@@ -44,6 +44,7 @@ class App extends React.Component {
         <h1>Marker</h1>
 
         <NaverMap
+          ncp
           clientId={clientId}
           style={{width: '500px', height: '500px'}}
           initialPosition={firstMarker}
