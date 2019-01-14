@@ -35,6 +35,11 @@ class App extends React.Component {
     this.setState(state => ({markers: state.markers.filter(m => m.id !== id)}))
   }
 
+  changeMarkers = () => {
+    const newMarkers = this.state.markers.map(m => ({...m, lat: m.lat + 0.005}))
+    this.setState({markers: newMarkers})
+  }
+
   render() {
     const {markers} = this.state
     const firstMarker = markers[0]
@@ -42,7 +47,7 @@ class App extends React.Component {
     return (
       <div>
         <h1>Marker</h1>
-
+        <button onClick={this.changeMarkers}>Change Markers</button>
         <NaverMap
           ncp
           clientId={clientId}

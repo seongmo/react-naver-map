@@ -1,6 +1,5 @@
 import React from 'react'
 import t from 'prop-types'
-// import * as R from 'ramda'
 
 export default class Polygon extends React.Component {
   static propTypes = {
@@ -28,12 +27,7 @@ export default class Polygon extends React.Component {
     polygon.setMap(mapNaver)
   }
 
-  // shouldComponentUpdate(prevProps) {
-  //   return !R.eqBy(R.props(['lat', 'lng','icon']), prevProps, this.props)
-  // }
-
   componentDidUpdate() {
-    // const {lat, lng, icon} = this.props
     if (!this.polygon) return null
     const polygon = this.polygon
 
@@ -52,7 +46,6 @@ export default class Polygon extends React.Component {
     const {naver} = this.context
     if (!naver || !this.polygon) return
     const polygon = this.polygon
-    // naver.maps.Event.removeListener(polygon.clickEventListener)
     polygon.setMap(null)
   }
 

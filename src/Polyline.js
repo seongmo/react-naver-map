@@ -1,6 +1,5 @@
 import React from 'react'
 import t from 'prop-types'
-// import * as R from 'ramda'
 
 export default class Polyline extends React.Component {
   static propTypes = {
@@ -24,12 +23,7 @@ export default class Polyline extends React.Component {
     polyline.setMap(mapNaver)
   }
 
-  // shouldComponentUpdate(prevProps) {
-  //   return !R.eqBy(R.props(['lat', 'lng','icon']), prevProps, this.props)
-  // }
-
   componentDidUpdate() {
-    // const {lat, lng, icon} = this.props
     if (!this.polyline) return null
     const polyline = this.polyline
 
@@ -48,7 +42,6 @@ export default class Polyline extends React.Component {
     const {naver} = this.context
     if (!naver || !this.polyline) return
     const polyline = this.polyline
-    // naver.maps.Event.removeListener(polyline.clickEventListener)
     polyline.setMap(null)
   }
 

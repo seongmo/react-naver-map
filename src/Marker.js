@@ -1,6 +1,9 @@
 import React from 'react'
 import t from 'prop-types'
-import * as R from 'ramda'
+
+const eqMarkerProps = (prev, cur) => {
+  return ['lat', 'lng', 'icon'].every(k => prev[k] === cur[k])
+}
 
 export default class Marker extends React.Component {
   static propTypes = {
@@ -29,7 +32,7 @@ export default class Marker extends React.Component {
   }
 
   shouldComponentUpdate(prevProps) {
-    return !R.eqBy(R.props(['lat', 'lng', 'icon']), prevProps, this.props)
+    return !eqMarkerProps(prevProps, this.props)
   }
 
   componentDidUpdate() {
